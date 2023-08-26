@@ -1,15 +1,17 @@
-const express = require('express');             // Importa o express
+const express = require('express');                                          // Importa o express
 
-const router = express.Router();               // Usar a função Router do express
+const tasksController = require('./controllers/tasksController');            // Importa o controller para usar as funções
+const tasksMiddleware = require('./middlewares/tasksMiddlewares');
 
+const router = express.Router();                                            // Usar a função Router do express
 
-/**router.get('/tasks', (require, response) =>{
-  response.status(200).send("O Router está funcionando.")
-});
-*/
+router.get('/tasks', tasksController.getAll);                               // A callback aqui será a função midleware do taskController
 
+router.post('/tasks', tasksMiddleware.validateFieldTitle, tasksController.createTask);
 
+router.delete('/tasks/:id', tasksController.deleteTask);
 
+router.put('/tasks/:id', tasksMiddleware.validateFieldTitle, tasksMiddleware.validateFieldStatus ,tasksController.updateTask);
 
 
 

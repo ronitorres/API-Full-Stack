@@ -1,5 +1,7 @@
 const mysql = require('mysql2/promise');
 
+require('dotenv').config();                                                          // Importado o dotenv para funcionar o servidor reconhecer as credenciais.
+
 const connection = mysql.createPool(
   {
     host: process.env.MYSQL_HOST,
